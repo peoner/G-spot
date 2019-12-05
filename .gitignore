@@ -1,0 +1,5 @@
+jtag.ip_user_files/
+jtag.cache/
+jtag.runs/
+jtag.hw/
+jtag.sim/

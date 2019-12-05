@@ -1,8 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "D:/jtag2/jtag.srcs/sources_1/new/Board.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module Test_box
-INFO: [VRFC 10-311] analyzing module Board
-INFO: [VRFC 10-2263] Analyzing Verilog file "D:/jtag2/jtag.srcs/sources_1/imports/new/tap_controller.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module tap_controller
-WARNING: [VRFC 10-756] identifier latched_jtag_ir is used before its declaration [D:/jtag2/jtag.srcs/sources_1/imports/new/tap_controller.v:201]
-INFO: [VRFC 10-2263] Analyzing Verilog file "D:/jtag2/jtag.srcs/sim_1/new/TestB.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module TestB

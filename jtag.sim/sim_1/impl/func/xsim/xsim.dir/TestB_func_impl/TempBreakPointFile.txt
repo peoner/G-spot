@@ -1,2 +1,0 @@
-Breakpoint File Version 1.0
-68 true D:/jtag2/jtag.srcs/sim_1/new/TestB.v
