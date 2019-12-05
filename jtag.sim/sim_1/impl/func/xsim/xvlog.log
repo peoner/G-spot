@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/jtag2/jtag.sim/sim_1/impl/func/xsim/TestB_func_impl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Board
+INFO: [VRFC 10-311] analyzing module tap_controller
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/jtag2/jtag.srcs/sim_1/new/TestB.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module TestB

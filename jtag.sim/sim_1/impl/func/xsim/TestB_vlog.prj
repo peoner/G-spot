@@ -1,0 +1,7 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"TestB_func_impl.v" \
+"../../../../../jtag.srcs/sim_1/new/TestB.v" \
+
+# Do not sort compile order
+nosort
