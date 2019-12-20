@@ -20,18 +20,23 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module Test_box(
-    input wire [7:0]a,
-    input wire [7:0]b,
-    output wire [7:0]c,
+    input wire [7:0]in_p,
+    output wire [7:0]out,
+    input in_p_ac,
     input clk
 );
 reg [7:0]res;
 
-assign c = res;
+assign out = res;
 
-always @ (posedge clk)
-    res = a + b;
-    
+always @ (*)
+begin
+    if(in_p_ac)
+        res[7:0] = in_p[7:0];
+    else if (clk)
+        res[7:0] = {res[0], res[7:1]};
+end
+
 endmodule
 
 module Board(
@@ -55,14 +60,20 @@ module Board(
     assign TDI_O = TDI;
     assign TDO_O = TDO;
     
+    reg [10:0]CLK_d = 0;
+    
+    always @(posedge CLK)
+        CLK_d = CLK_d + 1;
+        
+    
     wire [7:0]TB_a_in;
-    wire [7:0]TB_b_in;
     wire [7:0]TB_c_out;
     wire TB_clk;
+    wire TB_p_in_ac;
     
-    Test_box t_box(TB_a_in,TB_b_in,TB_c_out,TB_clk);
+    Test_box t_box(TB_a_in,TB_c_out,TB_p_in_ac,TB_clk);
     
     
-    tap_controller tap_c(TMS, TCK, TDI, TDO, SW, LD, CLK ,{TB_a_in,TB_b_in,TB_clk},TB_c_out);
+    tap_controller tap_c(TMS, TCK, TDI, TDO, {SW[10], SW[8:0]}, LD[7:0], {TB_clk,TB_p_in_ac,TB_a_in},TB_c_out);
     
 endmodule

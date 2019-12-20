@@ -23,11 +23,11 @@
 module TestB(
     );
     reg TMS, TCK=0,TRST,TDI;
-    reg CLK;
+    reg CLK=0;
     wire TDO;//data output
     
     wire TMS_O, TCK_O,TDI_O,TDO_O;
-    reg [15:0] SW;
+    reg [15:0] SW=0;
     wire [15:0] LD;
     
     Board b(
@@ -43,7 +43,18 @@ module TestB(
     SW,
     LD,
     CLK);
+
+initial
+begin
     
+    #3
+    
+    SW[8]=1;
+    SW[7:0]=12;
+    #8
+    SW[8]=0;
+end
+   
 initial
     
     begin
@@ -91,6 +102,11 @@ initial
 
 always 
     #5 TCK = !TCK;
+    
+always 
+    #5 CLK = !CLK;
+always 
+    #5 SW[10] = !SW[10];
       
 //always 
     //#10 TDI = !TDI;

@@ -27,15 +27,23 @@ module tap_controller(
     input wire TDI,//data input
     output wire TDO,//data output
     
-    input wire [15:0]External_input,    //SW
-    output wire [15:0]External_output,  //LED
-    input wire clk,
+    //input wire External_clk,
+    input wire [9:0]External_input,    //SW
+    output wire [7:0]External_output,  //LED
     
-    output wire [16:0]Internal_input,   //a,b,clk
-    input wire [7:0]Internal_output     //c_res
+    output wire [9:0]Internal_input,   //clk, in_p, in_p_ac
+    input wire [7:0]Internal_output     //out_res
     );
     
     `define IR_LENGTH                       4
+    `define BSR_LENGHT                      18
+    
+    `define In_input_LENGHT                 10
+    `define In_output_LENGHT                8
+    
+    `define Ex_input_LENGHT                 10
+    `define Ex_output_LENGHT                8
+        
     
     localparam STATE_TEST_LOGIC_RESET = 	4'd1;
     localparam STATE_TEST_RUN         =     4'd2;
@@ -183,11 +191,11 @@ always @(negedge TCK)
 /************************
 *   curent active instruction
 *************************/
-    reg     bypass_select;
-    reg     sample_preload_select;
-    reg     extest_select;
-    reg     intest_select;
-    reg     idcode_select;
+    reg     bypass_select = 0;
+    reg     sample_preload_select = 0;
+    reg     extest_select = 0;
+    reg     intest_select = 0;
+    reg     idcode_select = 0;
 
 //curent instruction 
     
@@ -200,11 +208,11 @@ begin
     idcode_select = 1'b0;
       case(latched_jtag_ir)    // synthesis parallel_case
         IDCODE:            idcode_select = 1'b1;       // Reading ID code
-        //SAMPLE_PRELOAD:    sample_preload_select = 1'b1;   // Sampling/Preloading
-        //EXTEST:            extest_select = 1'b1;   // External test
-        //INTEST :             tdo_mux_out = INTEST_tdo_i;      // INTEST test
-        BYPASS:             bypass_select = 1'b1;     // BYPASS instruction
-        default:            bypass_select = 1'b1;     // BYPASS instruction
+        SAMPLE_PRELOAD:    sample_preload_select = 1'b1;   // Sampling/Preloading
+        EXTEST:            extest_select = 1'b1;   // External test
+        INTEST :           intest_select = 1'b1;      // INTEST test
+        BYPASS:            bypass_select = 1'b1;     // BYPASS instruction
+        default:           bypass_select = 1'b1;     // BYPASS instruction
       endcase
 end   
    
@@ -243,7 +251,64 @@ end
             bypass_reg <=  TDI;
   end
 
-assign bypassed_tdo = bypass_reg;     
+assign bypassed_tdo = bypass_reg;
+
+
+  /**********************************************************************************
+  *                                                                                 *
+  *   SAMPLE                                                                        *
+  *                                                                                 *
+  **********************************************************************************/
+  
+  
+/**********************************************************************************
+*                                                                                 *
+*   BSR reg                                                                       *
+*                                                                                 *
+**********************************************************************************/
+  
+ reg [`BSR_LENGHT-1:0] BSR;
+ reg [`BSR_LENGHT-1:0] BSR_sample;
+ reg [`BSR_LENGHT-1:0] BSR_latched;
+ 
+ wire bs_chain_tdo_i = BSR[0];
+ wire bsr_select = intest_select | extest_select | sample_preload_select;
+ 
+always @ (*)
+ begin
+    if(dr_capture)
+        begin
+            case(latched_jtag_ir)    // synthesis parallel_case
+                SAMPLE_PRELOAD:     BSR[`BSR_LENGHT-1:0] = {External_input, Internal_output};   // Sampling/Preloading
+                EXTEST:             BSR[`BSR_LENGHT-1:0] = {External_input, External_output};   // External test
+                INTEST:             BSR[`BSR_LENGHT-1:0] = {Internal_input, Internal_output};      // INTEST test
+            endcase
+        end
+    /*else if(dr_update)
+        begin
+            case(latched_jtag_ir)    // synthesis parallel_case
+                SAMPLE_PRELOAD:    tdo_mux_out = bs_chain_tdo_i;   // Sampling/Preloading
+                EXTEST:             BSR[`BSR_LENGHT-1:0] = ;   // External test
+                INTEST:             BSR[`BSR_LENGHT-1:0] = ;      // INTEST test
+            endcase            
+        end*/
+    else if(bsr_select & dr_shift_ready)
+          BSR[`BSR_LENGHT-1:0] <=  {TDI, idcode_reg[31:1]};     
+ end
+ 
+ wire BSR_active = (extest_select | intest_select) ;
+ 
+ 
+assign Internal_input = (!BSR_active) ? 
+    (External_input[`Ex_input_LENGHT-1:0]) 
+        : 
+        (BSR[`BSR_LENGHT-1:`BSR_LENGHT-`In_input_LENGHT]);
+
+assign External_output = (!BSR_active) ? 
+            (Internal_output[`In_output_LENGHT-1:0]) 
+                : 
+                (BSR[`BSR_LENGHT-`In_input_LENGHT-1:0]);
+     
    
    /**********************************************************************************
    *                                                                                 *
@@ -254,14 +319,7 @@ assign bypassed_tdo = bypass_reg;
    reg [`IR_LENGTH-1:0]  latched_jtag_ir;  //saved register
    wire                  instruction_tdo;
    reg ir_shift_ready = 0;
-    
-    assign External_output[9:6] = latched_jtag_ir[3:0];
-    //assign External_output[15:0] = idcode_reg[5:0];
-    //assign External_output[11:0] = {idcode_reg[5:0],latched_jtag_ir[3:0],TDO,TDI};
-     assign External_output[4] = TDI;
-     assign External_output[5] = TDO;
-     assign External_output[10]  = ir_shift_ready;
-     
+         
     always @ (posedge TCK)
     begin
       if (test_logic_reset == 1)
@@ -306,9 +364,9 @@ assign bypassed_tdo = bypass_reg;
        begin
          case(latched_jtag_ir)    // synthesis parallel_case
            IDCODE:            tdo_mux_out = idcode_tdo;       // Reading ID code
-           //SAMPLE_PRELOAD:    tdo_mux_out = bs_chain_tdo_i;   // Sampling/Preloading
-           //EXTEST:            tdo_mux_out = bs_chain_tdo_i;   // External test
-           //INTEST :             tdo_mux_out = INTEST_tdo_i;      // INTEST test
+           SAMPLE_PRELOAD:    tdo_mux_out = bs_chain_tdo_i;   // Sampling/Preloading
+           EXTEST:            tdo_mux_out = bs_chain_tdo_i;   // External test
+           INTEST :           tdo_mux_out = bs_chain_tdo_i;      // INTEST test
            BYPASS:            tdo_mux_out = bypassed_tdo;     // BYPASS instruction
            default:            tdo_mux_out = bypassed_tdo;     // BYPASS instruction
          endcase
