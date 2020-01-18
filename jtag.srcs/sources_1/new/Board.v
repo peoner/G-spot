@@ -74,6 +74,6 @@ module Board(
     Test_box t_box(TB_a_in,TB_c_out,TB_p_in_ac,TB_clk);
     
     
-    tap_controller tap_c(TMS, TCK, TDI, TDO, {SW[10], SW[8:0]}, LD[7:0], {TB_clk,TB_p_in_ac,TB_a_in},TB_c_out);
+    tap_controller tap_c(TMS, TCK, TDI, TDO, {CLK_d[2], SW[8:0]}, LD[7:0], {TB_clk,TB_p_in_ac,TB_a_in},TB_c_out);
     
 endmodule

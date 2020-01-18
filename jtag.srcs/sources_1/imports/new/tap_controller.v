@@ -271,29 +271,33 @@ assign bypassed_tdo = bypass_reg;
  reg [`BSR_LENGHT-1:0] BSR_sample;
  reg [`BSR_LENGHT-1:0] BSR_latched;
  
- wire bs_chain_tdo_i = BSR[0];
+ wire bs_chain_tdo_i = BSR_sample[0];
  wire bsr_select = intest_select | extest_select | sample_preload_select;
  
-always @ (*)
+ always @ (posedge TCK)
  begin
-    if(dr_capture)
-        begin
-            case(latched_jtag_ir)    // synthesis parallel_case
-                SAMPLE_PRELOAD:     BSR[`BSR_LENGHT-1:0] = {External_input, Internal_output};   // Sampling/Preloading
-                EXTEST:             BSR[`BSR_LENGHT-1:0] = {External_input, External_output};   // External test
-                INTEST:             BSR[`BSR_LENGHT-1:0] = {Internal_input, Internal_output};      // INTEST test
-            endcase
-        end
-    /*else if(dr_update)
-        begin
-            case(latched_jtag_ir)    // synthesis parallel_case
-                SAMPLE_PRELOAD:    tdo_mux_out = bs_chain_tdo_i;   // Sampling/Preloading
-                EXTEST:             BSR[`BSR_LENGHT-1:0] = ;   // External test
-                INTEST:             BSR[`BSR_LENGHT-1:0] = ;      // INTEST test
-            endcase            
-        end*/
-    else if(bsr_select & dr_shift_ready)
-          BSR[`BSR_LENGHT-1:0] <=  {TDI, idcode_reg[31:1]};     
+   if (test_logic_reset == 1)
+     BSR_sample[`BSR_LENGHT-1:0] <= `BSR_LENGHT'b0;
+   else if(dr_capture)
+        case(latched_jtag_ir)    // synthesis parallel_case
+            SAMPLE_PRELOAD:     BSR_sample[`BSR_LENGHT-1:0] <= {External_input, Internal_output};   // Sampling/Preloading
+            EXTEST:             BSR_sample[`BSR_LENGHT-1:0] <= {External_input, External_output};   // External test
+            INTEST:             BSR_sample[`BSR_LENGHT-1:0] <= {Internal_input, Internal_output};      // INTEST test
+        endcase
+   else if(dr_shift_ready)
+     BSR_sample[`BSR_LENGHT-1:0] <=  {TDI, BSR_sample[`BSR_LENGHT-1:1]};
+ end
+ 
+always @ (negedge TCK )
+ begin
+    if(dr_update)
+    begin
+       case(latched_jtag_ir)    // synthesis parallel_case
+            SAMPLE_PRELOAD: BSR[`BSR_LENGHT-1:0] = BSR_sample[`BSR_LENGHT-1:0] ;
+            INTEST: BSR[`BSR_LENGHT-1:0] = BSR_sample[`BSR_LENGHT-1:0] ;
+            EXTEST: BSR[`BSR_LENGHT-1:0] = BSR_sample[`BSR_LENGHT-1:0] ;
+        endcase            
+    end     
  end
  
  wire BSR_active = (extest_select | intest_select) ;

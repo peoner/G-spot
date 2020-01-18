@@ -11,55 +11,59 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1095000000fs"></ZoomStartTime>
-      <ZoomEndTime time="2181000001fs"></ZoomEndTime>
-      <Cursor1Time time="1740000000fs"></Cursor1Time>
+      <ZoomStartTime time="5288000000fs"></ZoomStartTime>
+      <ZoomEndTime time="5506400001fs"></ZoomEndTime>
+      <Cursor1Time time="5470000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="172"></NameColumnWidth>
+      <NameColumnWidth column_width="166"></NameColumnWidth>
       <ValueColumnWidth column_width="64"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="21" />
-   <wvobject fp_name="/TestB/SW" type="array">
+   <WVObjectSize size="17" />
+   <wvobject fp_name="/TestB/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="group55" type="group">
+      <obj_property name="label">external_el</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">SW[15:0]</obj_property>
-      <obj_property name="ObjectShortName">SW[15:0]</obj_property>
-      <obj_property name="label">SW[8:0]</obj_property>
+      <wvobject fp_name="/TestB/SW" type="array">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">SW[15:0]</obj_property>
+         <obj_property name="ObjectShortName">SW[15:0]</obj_property>
+         <obj_property name="label">SW[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/LD" type="array">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">LD[15:0]</obj_property>
+         <obj_property name="ObjectShortName">LD[15:0]</obj_property>
+         <obj_property name="label">LD[7:0]</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject fp_name="/TestB/LD" type="array">
+   <wvobject fp_name="group54" type="group">
+      <obj_property name="label">T_signals jtag</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">LD[15:0]</obj_property>
-      <obj_property name="ObjectShortName">LD[15:0]</obj_property>
-      <obj_property name="label">LD[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/TRST" type="logic">
-      <obj_property name="ElementShortName">TRST</obj_property>
-      <obj_property name="ObjectShortName">TRST</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/b/tap_c/BSR_active" type="logic">
-      <obj_property name="ElementShortName">BSR_active</obj_property>
-      <obj_property name="ObjectShortName">BSR_active</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/TMS" type="logic">
-      <obj_property name="ElementShortName">TMS</obj_property>
-      <obj_property name="ObjectShortName">TMS</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/TCK" type="logic">
-      <obj_property name="ElementShortName">TCK</obj_property>
-      <obj_property name="ObjectShortName">TCK</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/TDI" type="logic">
-      <obj_property name="ElementShortName">TDI</obj_property>
-      <obj_property name="ObjectShortName">TDI</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/TDO" type="logic">
-      <obj_property name="ElementShortName">TDO</obj_property>
-      <obj_property name="ObjectShortName">TDO</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/b/tap_c/present_state" type="array">
-      <obj_property name="ElementShortName">present_state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">present_state[3:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestB/TRST" type="logic">
+         <obj_property name="ElementShortName">TRST</obj_property>
+         <obj_property name="ObjectShortName">TRST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/TMS" type="logic">
+         <obj_property name="ElementShortName">TMS</obj_property>
+         <obj_property name="ObjectShortName">TMS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/TCK" type="logic">
+         <obj_property name="ElementShortName">TCK</obj_property>
+         <obj_property name="ObjectShortName">TCK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/TDI" type="logic">
+         <obj_property name="ElementShortName">TDI</obj_property>
+         <obj_property name="ObjectShortName">TDI</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/TDO" type="logic">
+         <obj_property name="ElementShortName">TDO</obj_property>
+         <obj_property name="ObjectShortName">TDO</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="/TestB/TDI_SHIFT_REG" type="array">
       <obj_property name="ElementShortName">TDI_SHIFT_REG[31:0]</obj_property>
@@ -68,10 +72,8 @@
    <wvobject fp_name="/TestB/TDO_SHIFT_REG" type="array">
       <obj_property name="ElementShortName">TDO_SHIFT_REG[31:0]</obj_property>
       <obj_property name="ObjectShortName">TDO_SHIFT_REG[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/TDI_SHIFT_SIZE" type="array">
-      <obj_property name="ElementShortName">TDI_SHIFT_SIZE[31:0]</obj_property>
-      <obj_property name="ObjectShortName">TDI_SHIFT_SIZE[31:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/TestB/SHIFT_TDI_ev" type="logic">
       <obj_property name="ElementShortName">SHIFT_TDI_ev</obj_property>
@@ -81,17 +83,131 @@
       <obj_property name="ElementShortName">SET_SELECT_SCAN_ev</obj_property>
       <obj_property name="ObjectShortName">SET_SELECT_SCAN_ev</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestB/b/tap_c/latched_jtag_ir" type="array">
-      <obj_property name="ElementShortName">latched_jtag_ir[3:0]</obj_property>
-      <obj_property name="ObjectShortName">latched_jtag_ir[3:0]</obj_property>
+   <wvobject fp_name="/TestB/b/tap_c/BSR_active" type="logic">
+      <obj_property name="ElementShortName">BSR_active</obj_property>
+      <obj_property name="ObjectShortName">BSR_active</obj_property>
    </wvobject>
-   <wvobject fp_name="/TestB/b/tap_c/jtag_ir" type="array">
-      <obj_property name="ElementShortName">jtag_ir[3:0]</obj_property>
-      <obj_property name="ObjectShortName">jtag_ir[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/TestB/CLK" type="logic">
-      <obj_property name="ElementShortName">CLK</obj_property>
-      <obj_property name="ObjectShortName">CLK</obj_property>
+   <wvobject fp_name="group92" type="group">
+      <obj_property name="label">TAP info</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="group168" type="group">
+         <obj_property name="label">tap_state</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/TestB/b/tap_c/test_logic_reset" type="logic">
+            <obj_property name="ElementShortName">test_logic_reset</obj_property>
+            <obj_property name="ObjectShortName">test_logic_reset</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/test_run" type="logic">
+            <obj_property name="ElementShortName">test_run</obj_property>
+            <obj_property name="ObjectShortName">test_run</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/select_dr_scan" type="logic">
+            <obj_property name="ElementShortName">select_dr_scan</obj_property>
+            <obj_property name="ObjectShortName">select_dr_scan</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_capture" type="logic">
+            <obj_property name="ElementShortName">dr_capture</obj_property>
+            <obj_property name="ObjectShortName">dr_capture</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_shift" type="logic">
+            <obj_property name="ElementShortName">dr_shift</obj_property>
+            <obj_property name="ObjectShortName">dr_shift</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_shift_neg" type="logic">
+            <obj_property name="ElementShortName">dr_shift_neg</obj_property>
+            <obj_property name="ObjectShortName">dr_shift_neg</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_exit1" type="logic">
+            <obj_property name="ElementShortName">dr_exit1</obj_property>
+            <obj_property name="ObjectShortName">dr_exit1</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_pause" type="logic">
+            <obj_property name="ElementShortName">dr_pause</obj_property>
+            <obj_property name="ObjectShortName">dr_pause</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_exit2" type="logic">
+            <obj_property name="ElementShortName">dr_exit2</obj_property>
+            <obj_property name="ObjectShortName">dr_exit2</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_update" type="logic">
+            <obj_property name="ElementShortName">dr_update</obj_property>
+            <obj_property name="ObjectShortName">dr_update</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/select_ir_scan" type="logic">
+            <obj_property name="ElementShortName">select_ir_scan</obj_property>
+            <obj_property name="ObjectShortName">select_ir_scan</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/ir_capture" type="logic">
+            <obj_property name="ElementShortName">ir_capture</obj_property>
+            <obj_property name="ObjectShortName">ir_capture</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/ir_shift" type="logic">
+            <obj_property name="ElementShortName">ir_shift</obj_property>
+            <obj_property name="ObjectShortName">ir_shift</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/ir_shift_neg" type="logic">
+            <obj_property name="ElementShortName">ir_shift_neg</obj_property>
+            <obj_property name="ObjectShortName">ir_shift_neg</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/ir_exit1" type="logic">
+            <obj_property name="ElementShortName">ir_exit1</obj_property>
+            <obj_property name="ObjectShortName">ir_exit1</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/ir_pause" type="logic">
+            <obj_property name="ElementShortName">ir_pause</obj_property>
+            <obj_property name="ObjectShortName">ir_pause</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/ir_exit2" type="logic">
+            <obj_property name="ElementShortName">ir_exit2</obj_property>
+            <obj_property name="ObjectShortName">ir_exit2</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/ir_update" type="logic">
+            <obj_property name="ElementShortName">ir_update</obj_property>
+            <obj_property name="ObjectShortName">ir_update</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/dr_shift_ready" type="logic">
+            <obj_property name="ElementShortName">dr_shift_ready</obj_property>
+            <obj_property name="ObjectShortName">dr_shift_ready</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group143" type="group">
+         <obj_property name="label">TAP_instr</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/TestB/b/tap_c/bypass_select" type="logic">
+            <obj_property name="ElementShortName">bypass_select</obj_property>
+            <obj_property name="ObjectShortName">bypass_select</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/sample_preload_select" type="logic">
+            <obj_property name="ElementShortName">sample_preload_select</obj_property>
+            <obj_property name="ObjectShortName">sample_preload_select</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/extest_select" type="logic">
+            <obj_property name="ElementShortName">extest_select</obj_property>
+            <obj_property name="ObjectShortName">extest_select</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/intest_select" type="logic">
+            <obj_property name="ElementShortName">intest_select</obj_property>
+            <obj_property name="ObjectShortName">intest_select</obj_property>
+         </wvobject>
+         <wvobject fp_name="/TestB/b/tap_c/idcode_select" type="logic">
+            <obj_property name="ElementShortName">idcode_select</obj_property>
+            <obj_property name="ObjectShortName">idcode_select</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/TestB/b/tap_c/present_state" type="array">
+         <obj_property name="ElementShortName">present_state[3:0]</obj_property>
+         <obj_property name="ObjectShortName">present_state[3:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/b/tap_c/latched_jtag_ir" type="array">
+         <obj_property name="ElementShortName">latched_jtag_ir[3:0]</obj_property>
+         <obj_property name="ObjectShortName">latched_jtag_ir[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/b/tap_c/jtag_ir" type="array">
+         <obj_property name="ElementShortName">jtag_ir[3:0]</obj_property>
+         <obj_property name="ObjectShortName">jtag_ir[3:0]</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="/TestB/LSIR_ev" type="logic">
       <obj_property name="ElementShortName">LSIR_ev</obj_property>
@@ -108,5 +224,45 @@
    <wvobject fp_name="/TestB/TDI_SHIFT_REG_I" type="array">
       <obj_property name="ElementShortName">TDI_SHIFT_REG_I[31:0]</obj_property>
       <obj_property name="ObjectShortName">TDI_SHIFT_REG_I[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestB/TDI_SHIFT_SIZE" type="array">
+      <obj_property name="ElementShortName">TDI_SHIFT_SIZE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">TDI_SHIFT_SIZE[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestB/b/tap_c/BSR" type="array">
+      <obj_property name="ElementShortName">BSR[17:0]</obj_property>
+      <obj_property name="ObjectShortName">BSR[17:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TestB/b/tap_c/BSR_sample" type="array">
+      <obj_property name="ElementShortName">BSR_sample[17:0]</obj_property>
+      <obj_property name="ObjectShortName">BSR_sample[17:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group174" type="group">
+      <obj_property name="label">black_box</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TestB/b/t_box/in_p" type="array">
+         <obj_property name="ElementShortName">in_p[7:0]</obj_property>
+         <obj_property name="ObjectShortName">in_p[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/b/t_box/out" type="array">
+         <obj_property name="ElementShortName">out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">out[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/b/t_box/in_p_ac" type="logic">
+         <obj_property name="ElementShortName">in_p_ac</obj_property>
+         <obj_property name="ObjectShortName">in_p_ac</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/b/t_box/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TestB/b/t_box/res" type="array">
+         <obj_property name="ElementShortName">res[7:0]</obj_property>
+         <obj_property name="ObjectShortName">res[7:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

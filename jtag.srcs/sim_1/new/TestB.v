@@ -19,6 +19,38 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+module Test_box_pins_as_BSR(
+        input wire [7:0]in_p,
+        //output wire [7:0]out,
+        input in_p_ac,
+        input clk,
+        output reg [17:0]bsr_out
+    );
+    //{TB_clk,TB_p_in_ac,TB_a_in},TB_c_out
+    
+always @ (*)
+begin
+    bsr_out = {clk, in_p_ac, in_p[7:0], 8'b0};
+end     
+    
+endmodule
+
+module BSR_as_Test_box_pins(
+        output [7:0]in_p,
+        output wire [7:0]out,
+        output in_p_ac,
+        output clk,
+        input [17:0]bsr
+    );
+    //{TB_clk,TB_p_in_ac,TB_a_in},TB_c_out
+    //assign bsr_out = {clk, in_p_ac, in_p[7:0], 8'b0};
+    assign clk = bsr[17];
+    assign in_p_ac = bsr[16]; 
+    assign in_p = bsr[15:8];
+    assign out = bsr[7:0];
+    
+endmodule
+
 
 module TestB(
     );
@@ -180,7 +212,7 @@ initial begin
     else begin
         -> SET_TDI_0_triger;
     end
-    TDI_SHIFT_REG_I = TDI_SHIFT_REG_I + 1;
+    //TDI_SHIFT_REG_I = TDI_SHIFT_REG_I + 1;
         
     //@(negedge TCK);
     
@@ -288,7 +320,7 @@ begin
     
     SW[8]=1;
     SW[7:0]=12;
-    #8
+    #243
     SW[8]=0;
 end
 
@@ -298,12 +330,21 @@ end
     localparam INTEST         = 4'b0100;
     localparam BYPASS         = 4'b1111;
 
-reg [4:0] test_id;   
+reg [4:0] test_id;
+
+reg gen_clk;
+reg [7:0]gen_in_p;
+reg [7:0]gen_out;
+reg gen_in_p_ac;
+reg [17:0] gen_bsr;
+wire [17:0] w_gen_bsr;
+    
+Test_box_pins_as_BSR bsr_gen1(gen_in_p, gen_in_p_ac, gen_clk, w_gen_bsr);
 initial
     
     begin
         # 3
-        
+                        
         //TDI_IR_test
 //////////////////////////////////////////////////////////////
         test_id = 1;
@@ -344,8 +385,135 @@ initial
         -> LSDR_triger;
         @(LSDR_done_triger);        
 
+        // sample preload
 //////////////////////////////////////////////////////////////
         test_id = 4;
+        TDI_SHIFT_SIZE = 4;
+        TDI_SHIFT_REG  = SAMPLE_PRELOAD;
+        
+        -> LSIR_triger;
+        @(LSIR_done_triger);        
+        
+        gen_clk = 0;
+        gen_in_p = 92;
+        gen_in_p_ac = 0;
+                
+        TDI_SHIFT_SIZE = 18;
+        #1
+        TDI_SHIFT_REG  =  w_gen_bsr;
+        
+        -> LSDR_triger;
+        @(LSDR_done_triger);        
+
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+        test_id = 5;
+        TDI_SHIFT_SIZE = 4;
+        TDI_SHIFT_REG  = INTEST;
+        
+        -> LSIR_triger;
+        @(LSIR_done_triger);        
+        
+        gen_clk = 0;
+        gen_in_p = 92;
+        gen_in_p_ac = 1;
+                
+        TDI_SHIFT_SIZE = 18;
+        #1
+        TDI_SHIFT_REG  =  w_gen_bsr;
+        
+        -> LSDR_triger;
+        @(LSDR_done_triger);
+
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+        test_id = 6;
+        TDI_SHIFT_SIZE = 4;
+        TDI_SHIFT_REG  = INTEST;
+        
+        -> LSIR_triger;
+        @(LSIR_done_triger);        
+        
+        gen_clk = 0;
+        gen_in_p = 92;
+        gen_in_p_ac = 0;
+                
+        TDI_SHIFT_SIZE = 18;
+        #1
+        TDI_SHIFT_REG  =  w_gen_bsr;
+        
+        -> LSDR_triger;
+        @(LSDR_done_triger);
+
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+        test_id = 7;
+        TDI_SHIFT_SIZE = 4;
+        TDI_SHIFT_REG  = INTEST;
+        
+        -> LSIR_triger;
+        @(LSIR_done_triger);        
+        
+        gen_clk = 1;
+        gen_in_p = 46;
+        gen_in_p_ac = 0;
+                
+        TDI_SHIFT_SIZE = 18;
+        #1
+        TDI_SHIFT_REG  =  w_gen_bsr;
+        
+        -> LSDR_triger;
+        @(LSDR_done_triger);
+
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+        test_id = 8;
+        TDI_SHIFT_SIZE = 4;
+        TDI_SHIFT_REG  = INTEST;
+        
+        -> LSIR_triger;
+        @(LSIR_done_triger);        
+        
+        gen_clk = 0;
+        gen_in_p = 46;
+        gen_in_p_ac = 0;
+                
+        TDI_SHIFT_SIZE = 18;
+        #1
+        TDI_SHIFT_REG  =  w_gen_bsr;
+        
+        -> LSDR_triger;
+        @(LSDR_done_triger);
+
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+        test_id = 9;
+        TDI_SHIFT_SIZE = 4;
+        TDI_SHIFT_REG  = INTEST;
+        
+        -> LSIR_triger;
+        @(LSIR_done_triger);        
+        
+        gen_clk = 1;
+        gen_in_p = 46;
+        gen_in_p_ac = 0;
+                
+        TDI_SHIFT_SIZE = 18;
+        #1
+        TDI_SHIFT_REG  =  w_gen_bsr;
+        
+        -> LSDR_triger;
+        @(LSDR_done_triger);
+
+//////////////////////////////////////////////////////////////
+
+
+        test_id = 7;
         /*TDI = 1;
         TCK = 0; 
         TMS = 1;
